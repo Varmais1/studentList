@@ -7,6 +7,13 @@ Date: 10/5/2022
 */
 using namespace std;
 
+
+const char add[4] = {'a','d','d','\0'};
+const char print[6] = {'p','r','i','n','t','\0'};
+const char quit[5] = {'q','u','i','t','\0'};
+const char deleter[7] = {'d','e','l','e','t','e','\0'};
+
+
 struct Student {
   char firstName[15];
   char lastName[15];
@@ -29,21 +36,52 @@ Student* userAddNewStudent() {
   return newLearner;
 }
 void displayStudent(Student* student);
-Student* newStudent(char firstName[], char lastName[], int id, float GPA);
+void lowercase(char sentence[]);
+
 
 int main() {
   //Student* student = userAddNewStudent();
   //displayStudent(student);
-  char fname[15];
-  char lname[15];
-  strcpy(fname, "Ishaan");
-  strcpy(lname, "Varma");
-  Student* student2 = newStudent(fname,lname,418487,4.00);
-  displayStudent(student2);
-
-
-
-  delete student2;
+  bool run = true;
+  vector<Student*> ogList;
+  vector<Student*>* studentList = &ogList;
+  char command[7];
+  while(run == true) {
+    cin >> command;
+    lowercase(command);
+    if(strcmp(command,add) == 0) {
+      studentList->push_back(userAddNewStudent());
+    }
+    else if(strcmp(command,print) == 0) {
+      for(auto i = studentList->begin(); i != studentList->end(); ++i) {
+	displayStudent((*studentList)[i]);
+      }
+    }
+    else if(strcmp(command,deleter) == 0) {
+      int studentID = 0;
+      cin >> studentID;
+      for(auto i = studentList->begin(); i != studentList->end(); ++i) {
+	if((*studentList)[*i]->id == studentID) {
+	  studentList->erase(i);
+	}
+      }
+    }
+    else if(strcmp(command,quit) == 0) {
+      run = false;
+    }
+  }
+  
+  
+  
+  
+  
+  
+  for(auto i = studentList->begin(); i != studentList->end(); ++i) {
+    delete *((*studentList)[i]);
+    delete (*studentList)[i];
+  }
+  
+  
   return 0;
 }
 
@@ -54,11 +92,14 @@ void displayStudent(Student* student) {
   cout << "Student's GPA: " << student->GPA << endl;
 }
 
-Student* newStudent(char firstName[15], char lastName[15], int id, float GPA) {
-  Student* newLearner = new Student();
-  newLearner->firstName = firstName;
-  newLearner->lastName = lastName;
-  newLearner->id = id;
-  newLearner->GPA = GPA;
-  return newLearner;
-}
+
+void lowercase(char sentence[]) {
+   int i = 0;
+   while(i<4) {
+     if(65<(int) sentence[i] < 90) {
+       sentence[i] = (char)((int)(sentence[i])+32);
+     }
+   }
+
+   
+ }
