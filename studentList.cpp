@@ -54,7 +54,7 @@ int main() {
     }
     else if(strcmp(command,print) == 0) {
       for(auto i = studentList->begin(); i != studentList->end(); ++i) {
-	displayStudent((*studentList)[i]);
+	displayStudent((*i));
       }
     }
     else if(strcmp(command,deleter) == 0) {
@@ -77,8 +77,8 @@ int main() {
   
   
   for(auto i = studentList->begin(); i != studentList->end(); ++i) {
-    delete *((*studentList)[i]);
-    delete (*studentList)[i];
+    delete **i;
+    delete *i;
   }
   
   
