@@ -120,7 +120,12 @@ void displayStudent(Student* student) {
   cout << "Student ID: " << student->id << endl;
   int studentGPA100 = (int)((student->GPA+0.005)*100);
   double studentGPA = (double)(studentGPA100)/100;
+  //makes it so that the double is reported at a maximum of 2 decimal places
+  cout.precision(2);
+  //makes it so that the double is reported at exactly 2 places
+  cout << fixed;
   cout << "Student's GPA: " << studentGPA << endl;
+  cout << defaultfloat;
 }
 
 //makes all letters lowercase
